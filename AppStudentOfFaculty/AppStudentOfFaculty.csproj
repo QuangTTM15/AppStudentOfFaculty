@@ -1,0 +1,75 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="C:\Users\mrbon\OneDrive\Desktop\_MainLayout.cshtml" Link="_MainLayout.cshtml" />
+    <Content Include="wwwroot\assets\node_modules\datatables.net-bs4\css\dataTables.bootstrap4.css" />
+    <Content Include="wwwroot\assets\node_modules\datatables.net-bs4\css\responsive.dataTables.min.css" />
+    <Content Include="wwwroot\assets\node_modules\datetime-picker\css\bootstrap-datetimepicker.css" />
+    <Content Include="wwwroot\assets\node_modules\datetime-picker\css\bootstrap-datetimepicker.min.css" />
+    <Content Include="wwwroot\assets\node_modules\datetime-picker\css\bootstrap-theme.css" />
+    <Content Include="wwwroot\assets\node_modules\datetime-picker\css\bootstrap-theme.min.css" />
+    <Content Include="wwwroot\assets\node_modules\datetime-picker\css\bootstrap.css" />
+    <Content Include="wwwroot\assets\node_modules\datetime-picker\css\bootstrap.min.css" />
+    <Content Include="wwwroot\assets\node_modules\datetime-picker\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="wwwroot\assets\node_modules\datetime-picker\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="wwwroot\assets\node_modules\datetime-picker\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="wwwroot\assets\node_modules\dropify\dist\css\dropify.min.css" />
+    <Content Include="wwwroot\assets\node_modules\dropify\dist\fonts\dropify.woff" />
+    <Content Include="wwwroot\assets\node_modules\sweetalert2\dist\sweetalert2.min.css" />
+    <Content Include="wwwroot\assets\node_modules\toast\jquery.toast.css" />
+    <Content Include="wwwroot\assets\node_modules\TouchSpin\jquery.bootstrap-touchspin.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\assets\node_modules\bootstrap\dist\js\bootstrap.min.js" />
+    <None Include="wwwroot\assets\node_modules\datatables.net-bs4\js\dataTables.responsive.min.js" />
+    <None Include="wwwroot\assets\node_modules\datatables.net\js\jquery.dataTables.min.js" />
+    <None Include="wwwroot\assets\node_modules\datetime-picker\css\bootstrap-theme.css.map" />
+    <None Include="wwwroot\assets\node_modules\datetime-picker\css\bootstrap.css.map" />
+    <None Include="wwwroot\assets\node_modules\datetime-picker\fonts\glyphicons-halflings-regular.svg" />
+    <None Include="wwwroot\assets\node_modules\datetime-picker\js\bootstrap-datetimepicker.js" />
+    <None Include="wwwroot\assets\node_modules\datetime-picker\js\bootstrap-datetimepicker.min.js" />
+    <None Include="wwwroot\assets\node_modules\datetime-picker\js\bootstrap.js" />
+    <None Include="wwwroot\assets\node_modules\datetime-picker\js\bootstrap.min.js" />
+    <None Include="wwwroot\assets\node_modules\datetime-picker\js\jquery-1.9.0.intellisense.js" />
+    <None Include="wwwroot\assets\node_modules\datetime-picker\js\jquery-1.9.0.js" />
+    <None Include="wwwroot\assets\node_modules\datetime-picker\js\jquery-1.9.0.min.js" />
+    <None Include="wwwroot\assets\node_modules\datetime-picker\js\jquery-1.9.0.min.map" />
+    <None Include="wwwroot\assets\node_modules\datetime-picker\js\moment-with-locales.js" />
+    <None Include="wwwroot\assets\node_modules\datetime-picker\js\moment-with-locales.min.js" />
+    <None Include="wwwroot\assets\node_modules\datetime-picker\js\moment.js" />
+    <None Include="wwwroot\assets\node_modules\datetime-picker\js\moment.min.js" />
+    <None Include="wwwroot\assets\node_modules\datetime-picker\js\npm.js" />
+    <None Include="wwwroot\assets\node_modules\dropify\dist\js\dropify.min.js" />
+    <None Include="wwwroot\assets\node_modules\jquery\jquery-3.2.1.min.js" />
+    <None Include="wwwroot\assets\node_modules\sweetalert2\dist\sweetalert2.all.min.js" />
+    <None Include="wwwroot\assets\node_modules\sweetalert2\sweet-alert.init.js" />
+    <None Include="wwwroot\assets\node_modules\toast\jquery.toast.js" />
+    <None Include="wwwroot\assets\node_modules\TouchSpin\jquery.bootstrap-touchspin.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AppStudentOfFaculty.Common\AppStudentOfFaculty.Common.csproj" />
+    <ProjectReference Include="..\AppStudentOfFaculty.Dto\AppStudentOfFaculty.Dto.csproj" />
+    <ProjectReference Include="..\AppStudentOfFaculty.Entity\AppStudentOfFaculty.Entity.csproj" />
+  </ItemGroup>
+
+</Project>

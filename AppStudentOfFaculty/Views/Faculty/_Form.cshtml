@@ -1,0 +1,52 @@
+﻿@{
+    Layout = null;
+}
+@using AppStudentOfFaculty.Common
+@model AppStudentOfFaculty.Dto.Faculty.FacultyDto
+<div class="row form-horizontal form-label-left" style="margin-bottom:15px;">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <fieldset style="width: 100%">
+                    <legend>Information form</legend>
+                    <div class="first-step-group-criteria" style="padding-top:10px; margin-bottom: 10px;">
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <div class="form-row">
+                                    <div class="col-md-6 mb-3">
+                                        <label>Name<sup class="text-danger">*</sup></label>
+                                        @Html.HiddenFor(model => model.Id)
+                                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "Name", @autocomplete = "off" })
+                                        @Html.ValidationMessageFor(model => model.Name, null, new { @class = "label label-danger" })
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label>Coordinator <sup class="text-danger">*</sup></label>
+                                        @Html.DropDownListFor(model => model.CoordinatorId,
+                                        new SelectList(Model.Coordinators, "Value", "Text", Model.CoordinatorId), null,
+                                        new
+                                        {
+                                        @class = "form-control cc-select2-gender custom-select",
+                                        @style = "width:100%;",
+                                        @id = "CoordinatorId"
+                                        })
+                                        @Html.ValidationMessageFor(model => model.CoordinatorId, null, new { @class = "label label-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox mr-sm-2">
+                                        @Html.CheckBoxFor(model => model.IsActive, new { @class = "icheck custom-control-input", @id = "active" })
+                                        <label class="custom-control-label" for="active">Status</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="text-right">
+                    <a href="@Url.Action("Index","Faculty")" class="btn btn-outline-secondary">Cancel</a>
+                    <button class="btn btn-primary" type="submit">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

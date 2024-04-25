@@ -1,0 +1,76 @@
+﻿@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+@model List<AppStudentOfFaculty.Dto.User.UserDto>
+<div class="account-management">
+    @await Html.PartialAsync("_breadcrumb", new Dictionary<string, string> { { "User", "User Infomation" } }, new ViewDataDictionary(ViewData) { { "mHref", Url.Action("New", "User", new { area = "Admin" }) }, { "mShowButton", "true" } })
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive m-t-40">
+                        <table id="config-table" class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th style="width: 3%; text-align: center; ">.No</th>
+                                    <th>Full name</th>
+                                    <th>E-mail</th>
+                                    <th>Phone</th>
+                                    <th>Role</th>
+                                    <th>Faculty</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    int index = 1;
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td style="width: 3%; text-align: center; ">@index</td>
+                                            <td>@item.FullName</td>
+                                            <td>@item.Email</td>
+                                            <td>@item.Phone</td>
+                                            <td>@item.RoleName</td>
+                                            <td>@item.FacultyName</td>
+                                            <td>
+                                                @if (item.IsActive)
+                                                {
+                                                    <label class="btn btn-default btn-sm"><i class="fa fa-lg fa-toggle-on text-success"></i></label>
+                                                }
+                                                else
+                                                {
+                                                    <label class="btn btn-default btn-sm"><i class="fa fa-lg fa-toggle-off text-danger"></i></label>
+                                                }
+                                            </td>
+                                            <td>
+                                                <div class="btn-group btn-group-3 pull-right">
+                                                    <a href="@Url.Action("Edit","User", new { Id = item.Id })" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="Cập nhật thông tin tài khoản">
+                                                        <i class="fas fa-fw fa-pencil-alt text-success"></i>
+                                                    </a>
+                                                    <a href="javascript:void(0)" onclick="ConfirmSwalMessage('@string.Format("Do you want delete <br/> [{0}]", item.FullName)','', 'Agree', 'Cancel','@Url.Action("Destroy", "User", new { Id = item.Id })')" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Delete">
+                                                        <i class="fa fa-fw fa-trash text-danger"></i> &nbsp; Delete
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        index++;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#config-table').DataTable({
+        responsive: true
+    });
+</script>

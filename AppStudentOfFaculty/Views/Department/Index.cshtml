@@ -1,0 +1,70 @@
+﻿@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+@model List<AppStudentOfFaculty.Dto.Department.DepartmentDto>
+@using AppStudentOfFaculty.Common
+<div class="account-management">
+    @await Html.PartialAsync("_breadcrumb", new Dictionary<string, string>
+    { { "Department", "Department Infomation" } }, new ViewDataDictionary(ViewData) { { "mHref", Url.Action("New", "Department") }, { "mShowButton", "true" } })
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive m-t-40">
+                        <table id="config-table" class="table display table-bordered table-striped no-wrap" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th data-priority="1" style="max-width:20px !important;">No.</th>
+                                    <th data-priority="1">Name</th>
+                                    <th data-priority="1">Faculty</th>
+                                    <th data-priority="1" style="width:5%;">Status</th>
+                                    <th data-priority="1" style="width:5%;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    var No = 0;
+                                    foreach (var item in Model)
+                                    {
+                                        No = No + 1;
+                                        <tr>
+                                            <td>@No</td>
+                                            <td>@item.Name</td>
+                                            <td>@item.FacultyName</td>
+                                            <td class="text-center">
+                                                @if (item.IsActive)
+                                                {
+                                                    <label class="btn btn-default btn-sm"><i class="fa fa-lg fa-toggle-on text-success"></i></label>
+                                                }
+                                                else
+                                                {
+                                                    <label class="btn btn-default btn-sm"><i class="fa fa-lg fa-toggle-off text-danger"></i></label>
+                                                }
+                                            </td>
+                                            <td>
+                                                <div class="btn-group btn-group-2 pull-right">
+                                                    <a href="@Url.Action("Edit","Department", new { Id = item.Id })" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Edit">
+                                                        <i class="fas fa-fw fa-pencil-alt text-success"></i> &nbsp; Edit
+                                                    </a>
+                                                    <a href="javascript:void(0)" onclick="ConfirmSwalMessage('@string.Format("Do you want delete <br/> [{0}]", item.Name)','', 'Agree', 'Cancel','@Url.Action("Destroy", "Department", new { Id = item.Id })')" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Delete">
+                                                        <i class="fa fa-fw fa-trash text-danger"></i> &nbsp; Delete
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#config-table').DataTable({
+        responsive: true
+    });
+</script>

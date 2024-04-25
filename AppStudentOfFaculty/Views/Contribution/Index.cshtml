@@ -1,0 +1,175 @@
+﻿@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+@model List<AppStudentOfFaculty.Dto.Contribution.ContributionDto>
+@using AppStudentOfFaculty.Common
+<div class="account-management">
+    @await Html.PartialAsync("_breadcrumb", new Dictionary<string, string>
+    { { "Contribution", "Contribution Infomation" } }, new ViewDataDictionary(ViewData) { { "mHref", Url.Action("UploadFile", "Contribution") }, { "mShowButton", UserSession.RoleId == 4 ? "true" : "false" } })
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header pb-0 px-3" style="justify-content: space-between; display: flex">
+                    <div>
+                        <h6 class="mb-0">Contribution of @UserSession.FullName</h6>
+                    </div>
+                    @if (UserSession.RoleId == 2)
+                    {
+                         <div>
+                            <button class="btn btn-success" onclick="zipFile()">Zip file</button>
+                        </div>
+                    }
+                </div>
+                @if (Model != null && Model.Any())
+                {
+                    var No = 0;
+                    <div class="card-body pt-4 p-3">
+                        <ul class="list-group">
+                            @foreach (var item in Model)
+                            {
+                                No = No + 1;
+                                <li class="list-group-item border-0 p-4 mb-2 bg-gray-100 border-radius-lg" data-contributionid="@item.Id">
+                                    <div  class="row" style="display: flex; width: 100%; ">
+                                        <div class="d-flex text-left" style="width: 5%; ">
+                                            <input type="checkbox" class="checkItemZip" />
+                                        </div>
+                                        <div class="d-flex flex-column" style="width: 70%; ">
+                                            <h6 class="mb-3 text-sm">[@No]-@item.FileName</h6>
+                                            <span class="mb-2 text-xs">Created date: <span class="text-dark font-weight-bold ms-sm-2">@item.CreatedAt.ToString("dd-mm-yyyy hh:mm")</span></span>
+                                            <span class="mb-2 text-xs"><strong>Comments:</strong> <span class="text-dark ms-sm-2 font-weight-bold">@item.ContributionComments.Count() comments</span></span>
+                                        </div>
+                                        <div class="ms-auto text-end" style="width: 25%; ">
+                                            <a class="btn btn-link text-danger text-gradient px-3 mb-0" download="" href="@item.FileURL">
+                                                <i class="far fa-dowload-alt me-2" aria-hidden="true"></i>Dowload
+                                            </a>
+                                            @if (UserSession.RoleId == 2)
+                                            {
+                                                if (item.IsPublished)
+                                                {
+                                                    <button class="btn btn-warning px-3 mb-0" download="" onclick="onPublished(@item.Id)">
+                                                        <i class="far fa-dowload-alt me-2" aria-hidden="true"></i>
+                                                        <span>Un publish</span>
+                                                    </button>
+
+                                                }
+                                                else
+                                                {
+                                                    <button class="btn btn-success px-3 mb-0" download="" onclick="onPublished(@item.Id)">
+                                                        <i class="far fa-dowload-alt me-2" aria-hidden="true"></i>
+                                                        <span>Publish</span>
+                                                    </button>
+                                                }
+                                            }                                       
+                                        </div>
+                                    </div>                                   
+                                    <div class="">
+                                        <div class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                                            <ul class="" style="width: 100%; " id="idGroupComment-@item.Id">
+                                                @if (item.ContributionComments != null && item.ContributionComments.Any())
+                                                {
+                                                    foreach (var commentChild in item.ContributionComments)
+                                                    {
+                                                        <li>@commentChild.Content</li>
+                                                    }
+                                                } 
+                                            </ul>                                           
+                                        </div>
+                                         <div class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                                                <div class="d-flex flex-column" style="width: 90%">
+                                                    <input class="form-control" type="text" placeholder="Comment..." id="idComment-@item.Id" />
+                                                </div>
+                                                <div class="ms-auto text-end">
+                                                    <button class="btn btn-link text-danger text-gradient px-3 mb-0" download="" href="@item.FileURL" onclick="addComment('@item.Id', this)">
+                                                        <i class="far fa-dowload-alt me-2" aria-hidden="true"></i>Send
+                                                    </button>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </li>                         
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#config-table').DataTable({
+        responsive: true
+    });
+    $('#cloneCheckOut').click(function (e) {
+        var productId = 1;
+        var locationPick = $('.cls-location-pickup').val();
+        var locationDropoff = $('.cls-location-dropoff').val();
+        var datePick = $('.cls-pick-date').val();
+        var timePick = $('.cls-pick-time').val();
+        var dateReturn = $('.cls-return-date').val();
+        var timeReturn = $('.cls-return-time').val();
+        var extra = $('.check-extra-price').is(':checked');
+        var data = {
+            productId: productId,
+            pickupLocation: locationPick,
+            dropoffLocation: locationDropoff,
+            pickupDate: datePick,
+            pickupDateTime: timePick,
+            returnDate: dateReturn,
+            ReturnDateTime: timeReturn,
+            extraPrice: extra
+        };
+        $.ajax({
+            type: "get",
+            url: '@Url.Action("Comment", "Contribution")',
+            data: data,
+            success: function (result) {
+            },
+            error: function (result) {
+                alert('error');
+            }
+        });
+    });
+
+    function addComment(contributionId, e) {
+        var content = $('#idComment-' + contributionId).val();
+        if (content != null && content.length > 0) {
+            $.ajax({
+                type: "post",
+                url: '@Url.Action("AddComment", "Contribution")',
+                data: { contributionId: contributionId, content: content },
+                success: function (result) {
+                    if (result.success) {
+                        $('#idGroupComment-' + contributionId).append("<li>" + content + "</li>")
+                    }
+                },
+                error: function (result) {
+                    alert('error');
+                }
+            });
+        }        
+    }
+
+    function zipFile() {
+        var arr = [];
+        $('.checkItemZip').each(function (e) {
+            if ($(this).is(':checked')) {
+                arr.push($(this).closest('li').data("contributionid"));
+            }
+        });
+        if (arr.length > 0) {
+            window.location.href = '@Url.Action("ZipFile", "Contribution")' + '?ids=' + arr.join(',');
+        }
+    }
+
+    function onPublished(id){
+        $.ajax({
+            type: "post",
+            url: '@Url.Action("Published", "Contribution")',
+            data: { id: id },
+            success: function (result) {
+            },
+            error: function (result) {
+                alert('error');
+            }
+        });
+    }
+</script>

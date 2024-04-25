@@ -1,0 +1,14 @@
+﻿@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+@model AppStudentOfFaculty.Dto.User.UserDto
+<div class="account-management">
+    @await Html.PartialAsync("_breadcrumb", new Dictionary<string, string>
+    { { "Home", "Homepage" }, { "User Info", "User" }, { "C", "Add" } }, new ViewDataDictionary(ViewData) { { "mHref", Url.Action("Index", "User") }, { "mShowButton", "false" } })
+
+    @using (Html.BeginForm("New", "User", FormMethod.Post, new { @id = "form-create", @class = "form-horizontal needs-validation", @enctype = "multipart/form-data" }))
+    {
+        @await Html.PartialAsync("_Form", Model)
+    }
+</div>
+

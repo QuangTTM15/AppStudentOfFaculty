@@ -1,0 +1,156 @@
+﻿@{
+    Layout = null;
+}
+@using AppStudentOfFaculty.Common
+@model AppStudentOfFaculty.Dto.User.UserDto
+<div class="row form-horizontal form-label-left" style="margin-bottom:15px;">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <fieldset style="width: 100%">
+                    <legend>Information form</legend>
+                    <div class="first-step-group-criteria" style="padding-top:10px; margin-bottom: 10px;">
+                        <div class="form-row">
+                            <div class="col-md-8 mb-3">
+                                <div class="form-row">
+                                    <div class="col-md-6 mb-3">
+                                        <label>FullName <sup class="text-danger">*</sup></label>
+                                        @Html.HiddenFor(model => model.Id)
+                                        @Html.HiddenFor(model => model.CreatedBy)
+                                        @Html.TextBoxFor(model => model.FullName, new { @class = "form-control", placeholder = "FullName", @autocomplete = "off" })
+                                        @Html.ValidationMessageFor(model => model.FullName, null, new { @class = "label label-danger" })
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label>Email <sup class="text-danger">*</sup></label>
+                                        @if (Model.Id > 0)
+                                        {
+                                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = " Email", @autocomplete = "off" })
+                                        }
+                                        else
+                                        {
+                                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = " Email", @autocomplete = "off" })
+                                        }
+                                        @Html.ValidationMessageFor(model => model.Email, null, new { @class = "label label-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="col-md-6 mb-3">
+                                        <label>Password <sup class="text-danger">*</sup></label>
+                                        @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Password", @autocomplete = "off" })
+                                        @Html.ValidationMessageFor(model => model.Password, null, new { @class = "label label-danger" })
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label>Confirm Password <sup class="text-danger">*</sup></label>
+                                        @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control", placeholder = "ConfirmPassword", @autocomplete = "off" })
+                                        @Html.ValidationMessageFor(model => model.ConfirmPassword, null, new { @class = "label label-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6 mb-3">
+                                        <label>Phone</label>
+                                        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", placeholder = "Phone", @autocomplete = "off" })
+                                        @Html.ValidationMessageFor(model => model.Phone, null, new { @class = "label label-danger" })
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label>Địa Chỉ</label>
+                                        @Html.TextBoxFor(model => model.Address, new { @class = "form-control", placeholder = "Nhập địa chỉ", @autocomplete = "off" })
+                                        @Html.ValidationMessageFor(model => model.Address, null, new { @class = "label label-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6 mb-3">
+                                        <label>DateOfBirth</label>
+                                        <div class='input-group date datetimepicker2'>
+                                            @Html.TextBoxFor(model => model.DateOfBirth, new { @class = "form-control input-group-addon", placeholder = "DateOfBirth" })
+
+                                            <div class="input-group-append input-group-addon">
+                                                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                            </div>
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.DateOfBirth, null, new { @class = "label label-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6 mb-3">
+                                        <label>Gender <sup class="text-danger">*</sup></label>
+                                        @Html.DropDownListFor(model => model.Gender,
+                                        new SelectList(EnumCommon.EGender.Male.ToSelectListByDes(), "Value", "Text", Model.Gender), null,
+                                        new
+                                        {
+                                        @class = "form-control cc-select2-gender custom-select",
+                                        @style = "width:100%;",
+                                        @id = "GenderId"
+                                        })
+                                        @Html.ValidationMessageFor(model => model.Gender, null, new { @class = "label label-danger" })
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label>Role <sup class="text-danger">*</sup></label>
+                                        @Html.DropDownListFor(model => model.RoleId,
+                                        new SelectList(Model.ListRoles, "Value", "Text", Model.RoleId), null,
+                                        new
+                                        {
+                                        @class = "form-control cc-select2-gender custom-select",
+                                        @style = "width:100%;",
+                                        @id = "LevelId"
+                                        })
+                                        @Html.ValidationMessageFor(model => model.RoleId, null, new { @class = "label label-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6 mb-3">
+                                        <label>Faculty <sup class="text-danger">*</sup></label>
+                                        @Html.DropDownListFor(model => model.FacultyId,
+                                            new SelectList(Model.Facultys, "Value", "Text", Model.FacultyId), null,
+                                                new
+                                                {
+                                                    @class = "form-control cc-select2-gender custom-select",
+                                                    @style = "width:100%;",
+                                                    @id = "FacultyId"
+                                        })
+                                        @Html.ValidationMessageFor(model => model.FacultyId, null, new { @class = "label label-danger" })
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label></label>
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox mr-sm-2">
+                                                @Html.CheckBoxFor(model => model.IsActive, new { @class = "icheck custom-control-input", @id = "active" })
+                                                <label class="custom-control-label" for="active">Status</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="text-right">
+                    <a href="@Url.Action("Index","User")" class="btn btn-outline-secondary">Cancel</a>
+                    <button class="btn btn-primary" type="submit">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#btn-change-image").on("click", function () {
+            $("#PictureUpload").click();
+        });
+
+        $("#PictureUpload").on("change", function () {
+            PreviewImage(this, 'btn-change-image')
+        })
+
+        $('[id=Password]').val('@Model.Password')
+    })
+    function PreviewImage(e, previewElementID) {
+        var oFReader = new FileReader();
+        oFReader.readAsDataURL(e.files[0]);
+
+        oFReader.onload = function (oFREvent) {
+            document.getElementById(previewElementID).src = oFREvent.target.result;
+        };
+    };
+</script>

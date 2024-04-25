@@ -1,0 +1,78 @@
+﻿@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+@model AppStudentOfFaculty.Dto.Contribution.UploadContributionDto
+<div class="category-management">
+    @await Html.PartialAsync("_breadcrumb", new Dictionary<string, string>
+    { { "Contribution", "Contribution of student" }, { "C", "Edit" } }, new ViewDataDictionary(ViewData) { { "mHref", Url.Action("Index", "Contribution", new { area = "" }) }, { "mShowButton", "false" } })
+
+    @using (Html.BeginForm("UploadFile", "Contribution", FormMethod.Post, new { @id = "form-create", @class = "form-horizontal needs-validation", @enctype = "multipart/form-data" }))
+    {
+        <div class="row form-horizontal form-label-left" style="margin-bottom:15px;">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <fieldset style="width: 100%">
+                            <legend>Information form</legend>
+                            <div class="first-step-group-criteria" style="padding-top:10px; margin-bottom: 10px;">
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <div class="form-row">
+                                            <div class="col-md-6 mb-3">
+                                                @Html.HiddenFor(model => model.StudentId)
+                                                <label>Please choose file: <sup class="text-danger">*</sup></label>
+                                                @if (Model.ContributionId > 0)
+                                                {
+                                                    @Html.TextBoxFor(model => model.FileUpload, new { @class = "dropify", @type = "file" })
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBoxFor(model => model.FileUpload, new { @class = "dropify", @type = "file" })
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="text-right">
+                            <a href="@Url.Action("Index","Contribution")" class="btn btn-outline-secondary">Cancel</a>
+                            <a class="btn btn-primary" data-toggle="modal" data-target="#myModal">Save</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Term of condition</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="" style="align-items: baseline; display: flex; ">
+                    <input id="idCheckTerm" class="" type="checkbox" /> &nbsp;<p>You have to agree all condition of us.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="callSubmitForm()">Agree</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function callSubmitForm() {
+        if ($('#idCheckTerm').is(":checked")) {
+            $('#form-create').submit();
+        }
+    }
+</script>

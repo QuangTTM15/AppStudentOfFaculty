@@ -1,0 +1,49 @@
+﻿@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+@model List<AppStudentOfFaculty.Dto.Report.ReportDto>
+@using AppStudentOfFaculty.Common
+<div class="account-management">
+    @await Html.PartialAsync("_breadcrumb", new Dictionary<string, string>
+    { { "Report", "Report Infomation" } }, new ViewDataDictionary(ViewData) { { "mHref", Url.Action("New", "Report") }, { "mShowButton", "false" } })
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive m-t-40">
+                        <table id="config-table" class="table align-items-center mb-0" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th data-priority="1" style="max-width:20px !important;">No.</th>
+                                    <th data-priority="1">Student</th>
+                                    <th data-priority="1">FileName</th>
+                                    <th data-priority="1">Created date</th>
+                                    <th data-priority="1">Total Comments</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    var No = 0;
+                                    foreach (var item in Model)
+                                    {
+                                        No = No + 1;
+                                        <tr>
+                                            <td>@No</td>
+                                            <td>@item.StudentName</td>
+                                            <td>@item.FileName</td>
+                                            <td>@item.CreatedAt.ToString("dd-mm-yyyy hh:mm")</td>
+                                            <td>@item.TotalComment</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+</script>
